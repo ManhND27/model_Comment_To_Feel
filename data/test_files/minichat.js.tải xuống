@@ -1,0 +1,46 @@
+/* eslint-disable */
+var files = 'app~21833f8f.8ae4885790861cea9305.js,app~748942c6.3daf51499d67ac107a33.js,styles~21833f8f.435e7c1ce5fdb38127c7.js,vendors~0f485567.516646af6615aa73e513.js,vendors~253ae210.aa337345abc7f265d39f.js,vendors~7274e1de.7c2c04eac1361da843df.js,vendors~8004e7d2.cb90539f849551bfff08.js,vendors~9c5b28f6.96bd3f918c0ef1fea1b7.js,vendors~ccfeb0d6.d77e2099f009122c5920.js,vendors~cefe50a8.05a3b90d43bd935130bf.js,vendors~db300d2f.5114e4fb04f8742b82e9.js,vendors~ec8c427e.c29f4c925cccb30a2bd3.js,styles~21833f8f.4dca6f449469c62fd7ab.css'
+var isFromLocal = false
+var buildTime = 'Thu Apr 08 2021 22:25:01 GMT+0800 (+08)'
+var buildEnv = 'live'
+var buildRegion = 'vn'
+var host = window.location.href
+var isVisitingCN = host.indexOf('cn') > -1
+var cdnDomain = !!isFromLocal
+  ? ''
+  : isVisitingCN
+    ? 'https://deo.shopeesz.com/shopee/shopee-seller-' + buildEnv + '-' + buildRegion
+    : 'https://deo.shopeemobile.com/shopee/shopee-seller-' + buildEnv + '-' + buildRegion
+/* eslint-enable */
+function createAssetScriptTags (fileNames) {
+  console.log('MiniChat Build Time: ', buildTime)
+  var files = fileNames.split(',')
+  var fileLength = files.length
+  var fragment = document.createDocumentFragment()
+  if (fileLength) {
+    for (var i = 0; i < fileLength; i++) {
+      var jsFile = files[i].indexOf('js') > -1
+      var cssFile = files[i].indexOf('css') > -1
+      var fileUrl = cdnDomain + '/chateasy/' + files[i]
+      if (jsFile) {
+        var jstag = document.createElement('script')
+        jstag.src = fileUrl
+        jstag.type = 'text/javascript'
+        jstag.charset = 'utf-8'
+        if (jstag) {
+          fragment.appendChild(jstag)
+        }
+      } else if (cssFile) {
+        var csstag = document.createElement('link')
+        csstag.href = fileUrl
+        csstag.rel = 'stylesheet'
+        csstag.type = 'text/css'
+        if (csstag) {
+          fragment.appendChild(csstag)
+        }
+      }
+    }
+    document.body.appendChild(fragment)
+  }
+}
+createAssetScriptTags(files)
